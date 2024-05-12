@@ -1,0 +1,29 @@
+.detailCard {
+    border: 1px solid black;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: white;
+    width: 320px;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    /* make the table scrollable */
+    overflow-y: scroll;
+}
+
+table {
+    width: 80%;
+}
+
+table td {
+    padding: 10px;
+}
+
+table th {
+    padding: 10px;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

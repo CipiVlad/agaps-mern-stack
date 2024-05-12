@@ -1,0 +1,12 @@
+export type Summary = {
+    hole: number
+    par: number
+    roundId: number
+    score: number
+    fairway: string
+    green: string
+    approach: string
+    penalty: number
+    putts: number
+}
+

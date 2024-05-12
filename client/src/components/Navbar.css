@@ -1,0 +1,17 @@
+.nav_container {
+    padding: 5px;
+    border-radius: 10px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.home {
+    color: white;
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
