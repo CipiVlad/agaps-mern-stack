@@ -2,6 +2,9 @@ const express = require('express');
 import { Request, Response } from 'express';
 import connectDB from './config/db';
 import User from './models/User';
+import GameModes from './models/GameModes';
+import { Types } from 'mongoose';
+
 
 const app = express();
 const dotenv = require('dotenv');
@@ -73,23 +76,32 @@ app.post('/save-new-course/:id', async (req: Request, res: Response) => {
 
 // grep user by id and copy singleMode to User.gameModes
 app.post('/single-mode/:id', async (req: Request, res: Response) => {
+
+})
+
+// add new peer
+import { ObjectId } from 'mongodb';
+
+// ...
+
+app.post('/add-peer/:id', async (req: Request, res: Response) => {
     try {
-        const user = await User.findOne({ _id: req.params.id })
+        const user = await User.findOne({ _id: req.params.id });
         if (user) {
-            user.gameModes = [...user.gameModes, req.body]
+            user.peers.push({
+                peerId: new ObjectId(req.body.peerId),
+                peerName: req.body.peerName
+            });
             await user.save();
             res.status(200).send(user);
         } else {
             res.status(404).send({ message: 'User not found' });
         }
     } catch (error: any) {
-        res.status(500).send({ message: error.message })
+        res.status(500).send({ message: error.message });
         console.log(error);
     }
-})
-
-
-
+});
 // listener
 
 app.listen(3000, () => {
