@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
-const singleModeSchema = new mongoose.Schema({ // This defines an array of strings with a default value of an empty array
-
+const singleModeSchema = new mongoose.Schema({
     course: String,
     agaps: [
         {
@@ -10,7 +9,7 @@ const singleModeSchema = new mongoose.Schema({ // This defines an array of strin
             score: Number,
             fairway: Boolean,
             green: Boolean,
-            approach: ["Chip", "Pitch", "Sand"],
+            approach: String,
             penalty: Number,
             putts: Number
         }

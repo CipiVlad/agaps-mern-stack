@@ -78,24 +78,16 @@ app.post('/single-mode/:id', async (req: Request, res: Response) => {
     try {
         const user = await User.findOne({ _id: req.params.id });
         if (user) {
-            //create singleMode object
-            user.gameModes[0].singleMode.push({
-                singleGameId: new ObjectId(req.body.singleGameId),
+            // Create a new singleMode object with all the fields from the request body
+            const newSingleMode = {
                 course: req.body.course,
-                agaps: [
-                    {
-                        hole: req.body.hole,
-                        par: req.body.par,
-                        score: req.body.score,
-                        fairway: req.body.fairway,
-                        green: req.body.green,
-                        approach: [req.body.approach],
-                        penalty: req.body.penalty,
-                        putts: req.body.putts
-                    }
-                ]
-            });
+                agaps: req.body.agaps
+            };
+
+            // Push the new singleMode object to the singleMode array
+            user.gameModes[0].singleMode.push(newSingleMode);
             await user.save();
+
             res.status(200).send(user);
         } else {
             res.status(404).send({ message: 'User not found' });
