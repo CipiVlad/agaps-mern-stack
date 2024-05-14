@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import peersSchema from "./Peers";
+import singleModeSchema from "./SingleMode";
+import teamModeSchema from "./TeamMode";
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -15,8 +17,19 @@ const userSchema = new mongoose.Schema({
         unique: true,
         required: true
     },
-    savedCourses: { type: Object },
+    savedCourses: [{ type: Object }],
     // gameModes: GameModes,
+    gameModes: {
+        type: [{
+            singleMode: { type: [singleModeSchema], default: [] },
+            teamMode: { type: [teamModeSchema], default: [] }
+        }],
+        default: [{
+            singleMode: [],
+            teamMode: []
+        }]
+    },
+
     peers: [peersSchema],
 
 

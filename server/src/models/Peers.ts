@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
 const peersSchema = new mongoose.Schema({
-    peerName: String
-
-})
+    peerName: String,
+},
+    { timestamps: true }
+)
 export default peersSchema;

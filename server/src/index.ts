@@ -2,8 +2,7 @@ const express = require('express');
 import { Request, Response } from 'express';
 import connectDB from './config/db';
 import User from './models/User';
-import GameModes from './models/GameModes';
-import { Types } from 'mongoose';
+import { ObjectId } from 'mongodb';
 
 
 const app = express();
@@ -76,11 +75,37 @@ app.post('/save-new-course/:id', async (req: Request, res: Response) => {
 
 // grep user by id and copy singleMode to User.gameModes
 app.post('/single-mode/:id', async (req: Request, res: Response) => {
-
-})
-
+    try {
+        const user = await User.findOne({ _id: req.params.id });
+        if (user) {
+            //create singleMode object
+            user.gameModes[0].singleMode.push({
+                singleGameId: new ObjectId(req.body.singleGameId),
+                course: req.body.course,
+                agaps: [
+                    {
+                        hole: req.body.hole,
+                        par: req.body.par,
+                        score: req.body.score,
+                        fairway: req.body.fairway,
+                        green: req.body.green,
+                        approach: [req.body.approach],
+                        penalty: req.body.penalty,
+                        putts: req.body.putts
+                    }
+                ]
+            });
+            await user.save();
+            res.status(200).send(user);
+        } else {
+            res.status(404).send({ message: 'User not found' });
+        }
+    } catch (error: any) {
+        res.status(500).send({ message: error.message });
+        console.log(error);
+    }
+});
 // add new peer
-import { ObjectId } from 'mongodb';
 
 // ...
 
