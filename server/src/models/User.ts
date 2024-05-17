@@ -22,7 +22,7 @@ const singleModeSchema = new Schema({
     score: { type: Number, required: true },
     fairway: { type: Boolean, required: true },
     green: { type: Boolean, required: true },
-    approach: { type: String, required: true, enum: ['Pitch', 'Chip'] },
+    approach: { type: String, required: true, enum: ['Pitch', 'Chip', 'Sand'] },
     penalty: { type: Number, required: true },
     putts: { type: Number, required: true },
 });
@@ -45,13 +45,11 @@ const teamSchema = new Schema({
 });
 
 const teamModeSchema = new Schema({
-    id: { type: Number, required: true },
     course: { type: String, required: true },
     teamScores: { type: [teamSchema], default: [] },
 });
 
 const singleScrambleSchema = new Schema({
-    id: { type: Number, required: true },
     course: { type: String, required: true },
     scrambleScore: { type: [teamScoreSchema], default: [] },
     team: { type: [String], default: [] },

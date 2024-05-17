@@ -53,12 +53,6 @@ app.post('/signup', async (req: Request, res: Response) => {
     }
 });
 
-
-
-// +----------------------------------------+
-// |              APP ROUTES                |
-// +----------------------------------------+
-
 // get all users
 app.get('/users', async (req: Request, res: Response) => {
     try {
@@ -70,7 +64,13 @@ app.get('/users', async (req: Request, res: Response) => {
     }
 })
 
-// grep user by id and copy savedCourses to User.savedCourses
+
+// +----------------------------------------+
+// |              APP ROUTES                |
+// +----------------------------------------+
+
+
+// add new course
 app.post('/save-new-course/:id', async (req: Request, res: Response) => {
     const userId = req.params.id;
     const newCourse = req.body;
@@ -102,8 +102,8 @@ app.post('/save-new-course/:id', async (req: Request, res: Response) => {
     }
 });
 
-
-// grep user by id and copy singleMode to User.gameModes
+//add team-mode 
+//add single mode
 app.post('/single-mode/:id', async (req: Request, res: Response) => {
     try {
         const user = await User.findById({ _id: req.params.id });
@@ -128,32 +128,73 @@ app.post('/single-mode/:id', async (req: Request, res: Response) => {
     }
 });
 
+//add team-mode two-vs-two
+//add stroke play
+app.post('/team-mode/two-vs-two/stroke-play/:id', async (req: Request, res: Response) => {
+    try {
+        const user = await User.findById({ _id: req.params.id });
+        if (user) {
+            const strokePlay = {
+                course: req.body.course,
+                teamScores: [
+                    {
+                        teamA: req.body.teamScores.teamA,
+                        scoreA: req.body.teamScores.scoreA,
+                        teamB: req.body.teamScores.teamB,
+                        scoreB: req.body.teamScores.scoreB
+                    }
+                ]
+            };
 
-//add team mode
-app.post('/team-mode/two-vs-two/:id', async (req: Request, res: Response) => {
-    // try {
-    //     const user = await User.findOne({ _id: req.params.id })
-    //     if (user) {
-    //         user?.gameModes[0].teamMode.push({
-    //             twoVStwo: [
-    //                 {
-    //                     course: req.body.course
-    //                 }
-    //             ]
-    //         })
-    //         await user.save();
-    //         res.status(200).send(user);
-    //     } else {
-    //         res.status(404).send({ message: 'User not found' });
-    //     }
+            if (user.gameModes && user.gameModes.teamMode && user.gameModes.teamMode.twoVStwo) {
+                user.gameModes.teamMode.twoVStwo.strokePlay = user.gameModes.teamMode.twoVStwo.strokePlay || [];
+                user.gameModes.teamMode.twoVStwo.strokePlay.push(strokePlay);
 
-    // } catch (error: any) {
-    //     res.status(500).send({ message: error.message });
-    //     console.log(error);
-    // }
-})
+                await user.save();
+                res.status(200).send(user);
+            } else {
+                res.status(400).send({ message: 'teamMode.twoVStwo is not properly defined' });
+            }
+        } else {
+            res.status(404).send({ message: 'User not found' });
+        }
+    } catch (error: any) {
+        res.status(500).send({ message: error.message });
+        console.log(error);
+    }
+});
 
+//add team-mode single scramble
+app.post('/team-mode/single-scramble/:id', async (req: Request, res: Response) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (user) {
+            const singleScramble = {
+                course: req.body.course,
+                scrambleScore: req.body.scrambleScore.map((score: { hole: number; score: number }) => ({
+                    hole: score.hole,
+                    score: score.score
+                })),
+                team: req.body.team
+            };
 
+            if (user.gameModes && user.gameModes.teamMode && user.gameModes.teamMode.singleScramble) {
+                user.gameModes.teamMode.singleScramble.push(singleScramble);
+                await user.save();
+                res.status(200).send(user.gameModes.teamMode.singleScramble);
+            } else {
+                res.status(400).send({ message: 'teamMode.singleScramble is not properly defined' });
+            }
+        } else {
+            res.status(404).send({ message: 'User not found' });
+        }
+    } catch (error: any) {
+        res.status(500).send({ message: error.message });
+        console.log(error);
+    }
+});
+
+//add peer
 app.post('/add-peer/:id', async (req: Request, res: Response) => {
     try {
         const user = await User.findOne({ _id: req.params.id });
