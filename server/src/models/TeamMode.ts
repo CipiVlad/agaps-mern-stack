@@ -2,7 +2,7 @@ import mongoose, { ObjectId } from "mongoose";
 
 const teamModeSchema = new mongoose.Schema({
 
-    twoVStwo: [{
+    twoVStwo: {
         strokePlay: [
             {
                 // id: { type: ObjectId, required: true },
@@ -51,7 +51,7 @@ const teamModeSchema = new mongoose.Schema({
             },
             { timestamps: true }
         ]
-    }],
+    },
     singleScramble: [
         {
             // id: { type: ObjectId, required: true },
