@@ -1,11 +1,7 @@
 import axios from "axios"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import HoleCardStart from "../../components/HoleCardStart"
 const AddCourseInfo = () => {
-
-    const [showHoleCard, setShowHoleCard] = useState<boolean>(false)
-
     const navigate = useNavigate()
     const [course, setCourse] = useState<string>("")
     const [round, setRound] = useState<string>("")

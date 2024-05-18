@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import { Overview } from './pages/app/Overview'
 import HoleDetail from './pages/app/HoleDetail'
@@ -10,11 +9,14 @@ import Home from './pages/app/Home'
 import TotalSummary from './pages/app/TotalSummary'
 import EditHole from './pages/app/EditHole'
 import ContinueHole from './pages/app/ContinueHole'
+import UserList from './components/UserList'
+
+
 
 function App() {
   return (
     <div className="App">
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/overview" element={<Overview />} />
         <Route path="/add-round" element={<AddCourseInfo />} />
@@ -24,7 +26,12 @@ function App() {
         <Route path="/continue/:id" element={<ContinueHole />} />
         <Route path="/stats" element={<TotalSummary />} />
       </Routes>
-      <Navbar />
+      <Navbar /> */}
+
+      <Routes>
+        <Route path="/" element={<UserList />} />
+      </Routes>
+
     </div>
   )
 }
