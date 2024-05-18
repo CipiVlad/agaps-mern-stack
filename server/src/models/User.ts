@@ -70,7 +70,8 @@ const gameModesSchema = new Schema({
 });
 
 const peerSchema = new Schema({
-    peerName: { type: String, required: true },
+    peerName: { type: String, unique: true },
+    teamName: { type: String, unique: true },
 }, { timestamps: true });
 
 const teamStatsSchema = new Schema({
@@ -109,7 +110,20 @@ const comboStatsSchema = new Schema({
 
 const statsSchema = new Schema({
     singleMode: {
-        holesPlayed: { type: Number, required: true },
+        holesPlayed: { type: Number, default: 0 },
+        bestStroke: { type: Number, default: 0 }, //best game 78
+        worstStroke: { type: Number, default: 0 },//worst game 89
+        avgStroke: { type: Number, default: 0 },//avg of 85 after 180 holes
+        avgAGAPS: [
+            {
+                score: { type: Number, default: 0 }, //after 180 holes i.e. avg of 85
+                fairway: { type: Number, default: 0 },// fairway data: 7 of 14 means 50%
+                green: { type: Number, default: 0 },// green data: 9 of 14 means 64%
+                approach: { type: String, default: 'Pitch', enum: ['Pitch', 'Chip', 'Sand'] },
+                penalty: { type: Number, default: 0 },
+                putts: { type: Number, default: 0 },//after 180 holes i.e. avg of 32 putts
+            }
+        ]
     },
     teamMode: {
         twoVStwo: {
@@ -117,6 +131,7 @@ const statsSchema = new Schema({
             matchPlay: { type: [teamStatsSchema], default: [] },
             comboPlay: { type: [comboStatsSchema], default: [] },
         },
+        singleScramble: { type: [teamStatsSchema], default: [] },
     },
 }, { timestamps: true });
 
