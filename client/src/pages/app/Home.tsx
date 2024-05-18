@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 
 const Home = () => {
 
@@ -6,6 +8,7 @@ const Home = () => {
             <h1>AGAPS</h1>
             <p>Track Your Golf (R)evolution</p>
 
+            <Link to="/overview">Overview</Link>
 
 
         </div>
