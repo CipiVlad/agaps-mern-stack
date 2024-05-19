@@ -10,12 +10,14 @@ import courseRoutes from './routes/saveCourse/courseRoutes'
 import singleModeRoutes from './routes/gameModes/single/singleModeRoutes'
 import indexTeamModeRoutes from './routes/gameModes/index.router'
 import peerRoutes from './routes/peers/peerRoutes'
+import { verifyJWT } from './middleware/verifyJWT';
 
 //server
 const app = express();
 const dotenv = require('dotenv');
 const cors = require('cors');
 const port = 3000 || process.env.PORT;
+
 connectDB();
 
 //config
@@ -34,6 +36,9 @@ app.use(express.json());
 // get all users --- This is only for admin
 // create user --- This is for Userssingle/singleModeController
 app.use('/', authRoutes);
+
+// every route should be verified after this line
+app.use(verifyJWT);
 
 // +----------------------------------------+
 // |              COURSE ROUTES                |
