@@ -8,8 +8,13 @@ export const userApi = createApi({
     endpoints: (builder) => ({
         getAllUsers: builder.query<User[], void>({
             query: () => 'users',
+        }),
+        // query for single-mode http://localhost:3000/single-mode/:id
+        getSingleModeUser: builder.query<User, string>({
+            query: (id) => `single-mode/${id}`,
         })
     })
-});
+})
 
-export const { useGetAllUsersQuery } = userApi;
+
+export const { useGetAllUsersQuery, useGetSingleModeUserQuery } = userApi;
