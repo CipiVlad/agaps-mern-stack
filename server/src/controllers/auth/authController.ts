@@ -78,7 +78,7 @@ export const loginUser = async (req: Request, res: Response) => {
         const accessToken = jwt.sign(
             { username: foundUser[0].username },
             accessTokenSecret,
-            { expiresIn: '30s' }
+            { expiresIn: '45s' }
         );
 
         const refreshToken = jwt.sign(
@@ -105,7 +105,24 @@ export const loginUser = async (req: Request, res: Response) => {
     }
 }
 
-// logout user
-export const logoutUser = async (req: Request, res: Response) => {
-    res.status(200).json({ message: 'Logout successful' });
+
+export const handleLogout = async (req: Request, res: Response) => {
+    const cookies = req.cookies;
+    if (!cookies?.jwt) return res.sendStatus(204); //No content
+
+    const refreshToken = cookies.jwt;
+
+    // Is refresh token in db?
+    const foundUser = await User.findOne({ refreshToken });
+
+    if (!foundUser) {
+        res.clearCookie('jwt', { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        return res.sendStatus(204); // No content
+    }
+
+    // Delete refreshToken in db
+    await User.updateOne({ refreshToken }, { $set: { refreshToken: '' } });
+
+    res.clearCookie('jwt', { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });// secure: true - only on https not in dev
+    res.sendStatus(204);
 }

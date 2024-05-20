@@ -144,6 +144,7 @@ const userSchema = new Schema({
     gameModes: { type: gameModesSchema, default: () => ({}) },
     peers: { type: [peerSchema], default: [] },
     stats: { type: statsSchema, default: () => ({ singleMode: { holesPlayed: 0 }, teamMode: { twoVStwo: { strokePlay: [], matchPlay: [], comboPlay: [] }, singleScramble: [] } }) },
+    refreshToken: { type: String, default: '' },
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);

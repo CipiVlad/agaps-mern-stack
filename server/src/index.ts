@@ -11,6 +11,7 @@ import singleModeRoutes from './routes/gameModes/single/singleModeRoutes'
 import indexTeamModeRoutes from './routes/gameModes/index.router'
 import peerRoutes from './routes/peers/peerRoutes'
 import { verifyJWT } from './middleware/verifyJWT';
+import cookieParser from 'cookie-parser';
 
 //server
 const app = express();
@@ -22,12 +23,19 @@ connectDB();
 
 //config
 dotenv.config();
+
+//Cross Origin Resource Sharing
 app.use(cors());
 
 //middleware
+//built-in middleware for json to handle urlencoded form data
 app.use(express.urlencoded({ extended: true }));
+
+//built-in middleware for json
 app.use(express.json());
 
+//built-in middleware for cookies
+app.use(cookieParser());
 
 // +----------------------------------------+
 // |              AUTH ROUTES               |
@@ -36,6 +44,9 @@ app.use(express.json());
 // get all users --- This is only for admin
 // create user --- This is for Userssingle/singleModeController
 app.use('/', authRoutes);
+
+// refresh token
+// app.use('/refresh', refreshRoute)
 
 // every route should be verified after this line
 app.use(verifyJWT);
