@@ -78,13 +78,13 @@ export const loginUser = async (req: Request, res: Response) => {
         const accessToken = jwt.sign(
             { username: foundUser[0].username },
             accessTokenSecret,
-            { expiresIn: '45s' }
+            { expiresIn: '10s' }
         );
 
         const refreshToken = jwt.sign(
             { username: foundUser[0].username },
             refreshTokenSecret,
-            { expiresIn: '1d' }
+            { expiresIn: '15s' }
         );
 
         const currentUser: any = { ...foundUser[0], refreshToken };

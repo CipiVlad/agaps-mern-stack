@@ -18,6 +18,8 @@ import SingleScramble from './pages/team-mode/singleScramble/SingleScramble'
 import WelcomeScreen from './pages/auth/WelcomeScreen'
 import LogIn from './pages/auth/LogIn'
 import SignUp from './pages/auth/SignUp'
+import RequireAuth from './features/auth/RequireAuth'
+import Welcome from './features/auth/Welcome'
 
 
 
@@ -37,11 +39,16 @@ function App() {
       <Navbar /> */}
 
       <Routes>
-
-        <Route path="/welcome" element={<WelcomeScreen />} />
+        {/* public routes */}
+        <Route path="/" element={<WelcomeScreen />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/overview" element={<Overview />} />
+
+        {/* protect routes */}
+        <Route element={<RequireAuth />}>
+          <Route path='/welcome-to-your-agaps' element={<Welcome />} />
+          <Route path="/overview" element={<Overview />} />
+        </Route>
 
         {/* <Route path="/" element={<UserList />} /> */}
         {/* <Route path="/" element={<Home />} />

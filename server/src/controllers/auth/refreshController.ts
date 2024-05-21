@@ -33,7 +33,7 @@ export const handleRefreshToken = (req: Request, res: Response) => {
             const accessToken = jwt.sign(
                 { username: username },
                 process.env.ACCESS_TOKEN_SECRET!,
-                { expiresIn: '45s' }
+                { expiresIn: '10s' }
             );
             res.status(200).json({ accessToken });
         }

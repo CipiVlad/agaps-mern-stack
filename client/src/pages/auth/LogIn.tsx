@@ -9,7 +9,7 @@ import { useLoginMutation } from "../../features/auth/authApiSlice"
 const LogIn = () => {
     const userRef = useRef<HTMLInputElement>(null)
     const errRef = useRef<HTMLInputElement>(null)
-    const [username, setUsername] = useState('')
+    const [user, setUser] = useState('')
     const [password, setPassword] = useState('')
     const [errMsg, setErrMsg] = useState('')
     const navigate = useNavigate()
@@ -24,41 +24,73 @@ const LogIn = () => {
 
     useEffect(() => {
         setErrMsg('')
-    }, [username, password])
+    }, [user, password])
 
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
         try {
-            const userData = await login({ username, password }).unwrap()
+            const userData = await login({ user, password }).unwrap()
             console.log(userData);
-            dispatch(setCredentials({ ...userData, username }))
-            setUsername('')
+            dispatch(setCredentials({ ...userData, user }))
+            setUser('')
             setPassword('')
-            navigate('/welcome')
+            navigate('/welcome-to-your-agaps')
 
         } catch (err: any) {
-            if (!err?.originalStatus) {
-                // isLoading: true until timeout occurs
-                setErrMsg('No Server Response');
+            if (!err.originalStatus) {
+                setErrMsg('No Server Response')
             } else if (err.originalStatus === 400) {
-                setErrMsg('Missing Username or Password');
+                setErrMsg('Missing Username or Password')
             } else if (err.originalStatus === 401) {
-                setErrMsg('Unauthorized');
+                setErrMsg('Unauthorized')
             } else {
-                setErrMsg('Login Failed');
+                setErrMsg("Login Failed")
             }
-            errRef.current?.focus();
+            errRef.current?.focus()
         }
     }
 
+    const handleUserInput = (e: any) => setUser(e.target.value)
+    const handlePwdInput = (e: any) => setPassword(e.target.value)
+
+    const content = isLoading ? <p>Loading...</p> : (
+        <section>
+
+            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+
+            <h1>Log In</h1>
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="username">Username:</label>
+                <input
+                    type="text"
+                    id="username"
+                    ref={userRef}
+                    autoComplete="off"
+                    onChange={handleUserInput}
+                    value={user}
+                    required
+                />
+
+                <label htmlFor="password">Password:</label>
+                <input
+                    type="password"
+                    id="password"
+                    onChange={handlePwdInput}
+                    value={password}
+                    required
+                />
+                <button>Log In</button>
+            </form>
+        </section>
+
+
+    )
     return (
         <div>
-            <h2>Log In</h2>
-            <input type="email" name="email" placeholder="Email" />
-            <input type="password" name="password" placeholder="Password" />
-            <button onClick={handleSubmit}>Log In</button>
+            {content}
         </div>
+
     )
 }
 export default LogIn
