@@ -70,8 +70,8 @@ const gameModesSchema = new Schema({
 });
 
 const peerSchema = new Schema({
-    peerName: { type: String, unique: true },
-    teamName: { type: String, unique: true },
+    peerName: { type: String },
+    teamName: { type: String },
 }, { timestamps: true });
 
 const teamStatsSchema = new Schema({

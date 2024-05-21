@@ -39,6 +39,7 @@ export const createUser = async (req: Request, res: Response) => {
             email,
             password: hashedPassword,
             username,
+            peers: [],
             gameModes: { singleMode: [], teamMode: { twoVStwo: { strokePlay: [], matchPlay: [], comboPlay: [] }, singleScramble: [] } },
             stats: { singleMode: { holesPlayed: 0 }, teamMode: { twoVStwo: { strokePlay: [], matchPlay: [], comboPlay: [] }, singleScramble: [] } },
         });
