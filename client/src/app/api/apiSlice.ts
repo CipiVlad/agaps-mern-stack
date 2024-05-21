@@ -10,7 +10,7 @@ const baseQuery = fetchBaseQuery({
             headers.set('authorization', `Bearer ${token}`);
         }
         return headers;
-    },
+    }
 });
 
 const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
@@ -28,6 +28,8 @@ const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
             api.dispatch(logOut({ user: null, accessToken: null }));
         }
     }
+    console.log(result);
+
     return result;
 };
 

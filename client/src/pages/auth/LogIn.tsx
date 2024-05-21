@@ -9,7 +9,7 @@ import { useLoginMutation } from "../../features/auth/authApiSlice"
 const LogIn = () => {
     const userRef = useRef<HTMLInputElement>(null)
     const errRef = useRef<HTMLInputElement>(null)
-    const [user, setUser] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [errMsg, setErrMsg] = useState('')
     const navigate = useNavigate()
@@ -24,34 +24,35 @@ const LogIn = () => {
 
     useEffect(() => {
         setErrMsg('')
-    }, [user, password])
+    }, [username, password])
 
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
         try {
-            const userData = await login({ user, password }).unwrap()
+            const userData = await login({ username, password }).unwrap()
             console.log(userData);
-            dispatch(setCredentials({ ...userData, user }))
-            setUser('')
+            dispatch(setCredentials({ ...userData, username }))
+            setUsername('')
             setPassword('')
             navigate('/welcome-to-your-agaps')
+            console.log(userData);
 
         } catch (err: any) {
-            if (!err.originalStatus) {
+            if (!err.status) {
                 setErrMsg('No Server Response')
-            } else if (err.originalStatus === 400) {
+            } else if (err.status === 400) {
                 setErrMsg('Missing Username or Password')
-            } else if (err.originalStatus === 401) {
+            } else if (err.status === 401) {
                 setErrMsg('Unauthorized')
             } else {
-                setErrMsg("Login Failed")
+                setErrMsg(err.data?.message)
             }
             errRef.current?.focus()
         }
     }
 
-    const handleUserInput = (e: any) => setUser(e.target.value)
+    const handleUserInput = (e: any) => setUsername(e.target.value)
     const handlePwdInput = (e: any) => setPassword(e.target.value)
 
     const content = isLoading ? <p>Loading...</p> : (
@@ -68,7 +69,7 @@ const LogIn = () => {
                     ref={userRef}
                     autoComplete="off"
                     onChange={handleUserInput}
-                    value={user}
+                    value={username}
                     required
                 />
 

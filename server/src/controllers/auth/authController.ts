@@ -39,16 +39,15 @@ export const createUser = async (req: Request, res: Response) => {
             email,
             password: hashedPassword,
             username,
-            peers: [],
+            peers: [{ peerName: '', teamName: '' }],
             gameModes: { singleMode: [], teamMode: { twoVStwo: { strokePlay: [], matchPlay: [], comboPlay: [] }, singleScramble: [] } },
             stats: { singleMode: { holesPlayed: 0 }, teamMode: { twoVStwo: { strokePlay: [], matchPlay: [], comboPlay: [] }, singleScramble: [] } },
         });
         await newUser.save();
         res.status(201).send({ message: 'User created successfully' });
     } catch (error: any) {
-        res.status(500).send({ message: error.message })
+        res.status(500).send({ message: error.message });
     }
-
 }
 
 // login user

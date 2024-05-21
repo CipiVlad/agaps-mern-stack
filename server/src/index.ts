@@ -12,6 +12,8 @@ import indexTeamModeRoutes from './routes/gameModes/index.router'
 import peerRoutes from './routes/peers/peerRoutes'
 import { verifyJWT } from './middleware/verifyJWT';
 import cookieParser from 'cookie-parser';
+import credentials from './middleware/credentials';
+import corsOptions from './config/corsOptions';
 
 //server
 const app = express();
@@ -24,14 +26,10 @@ connectDB();
 //config
 dotenv.config();
 
-//cors
-const corsOptions = {
-    origin: 'http://localhost:5173',
-    credentials: true,            //access-control-allow-credentials:true
-}
 
 //Cross Origin Resource Sharing
-app.use(cors(corsOptions));
+app.use(credentials)
+app.use(cors(corsOptions))
 
 //middleware
 //built-in middleware for cookies
