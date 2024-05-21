@@ -94,8 +94,8 @@ export const loginUser = async (req: Request, res: Response) => {
         // Creates Secure Cookie with refresh token
         res.cookie('jwt', refreshToken, {
             httpOnly: true,
-            // secure: true,
-            // sameSite: 'none',
+            secure: true,
+            sameSite: 'none',
             maxAge: 24 * 60 * 60 * 1000 // 1 day
         });
 
@@ -116,13 +116,13 @@ export const handleLogout = async (req: Request, res: Response) => {
     const foundUser = await User.findOne({ refreshToken });
 
     if (!foundUser) {
-        res.clearCookie('jwt', { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.clearCookie('jwt', { httpOnly: true, sameSite: 'none', secure: true });
         return res.sendStatus(204); // No content
     }
 
     // Delete refreshToken in db
     await User.updateOne({ refreshToken }, { $set: { refreshToken: '' } });
 
-    res.clearCookie('jwt', { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });// secure: true - only on https not in dev
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'none', secure: true });
     res.sendStatus(204);
 }

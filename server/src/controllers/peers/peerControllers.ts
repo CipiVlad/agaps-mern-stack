@@ -8,7 +8,7 @@ export const addPeer = async (req: Request, res: Response) => {
         const user = await User.findOne({ _id: req.params.id });
         if (user) {
             user.peers.push({
-                peerId: new ObjectId(req.body.peerId),
+                // peerId: new ObjectId(req.body.peerId),
                 peerName: req.body.peerName
             });
             await user.save();

@@ -15,7 +15,9 @@ import SingleMode from './pages/single-mode/SingleMode'
 import TeamMode from './pages/team-mode/TeamMode'
 import TwoVSTwo from './pages/team-mode/twoVStwo/TwoVSTwo'
 import SingleScramble from './pages/team-mode/singleScramble/SingleScramble'
-
+import WelcomeScreen from './pages/auth/WelcomeScreen'
+import LogIn from './pages/auth/LogIn'
+import SignUp from './pages/auth/SignUp'
 
 
 
@@ -35,13 +37,18 @@ function App() {
       <Navbar /> */}
 
       <Routes>
-        {/* <Route path="/" element={<UserList />} /> */}
-        <Route path="/" element={<Home />} />
+
+        <Route path="/welcome" element={<WelcomeScreen />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/overview" element={<Overview />} />
+
+        {/* <Route path="/" element={<UserList />} /> */}
+        {/* <Route path="/" element={<Home />} />
         <Route path="/single-mode" element={<SingleMode />} />
         <Route path="/team-mode" element={<TeamMode />} />
         <Route path="/team-mode/two-vs-two" element={<TwoVSTwo />} />
-        <Route path="/team-mode/single-scramble" element={<SingleScramble />} />
+        <Route path="/team-mode/single-scramble" element={<SingleScramble />} /> */}
       </Routes>
 
     </div>
