@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import './App.css'
 // import { Overview } from './pages/app/Overview'
 // import HoleDetail from './pages/app/HoleDetail'
-// import Navbar from './components/Navbar'
+import Navbar from './components/Navbar'
 // import AddCourseInfo from './pages/app/AddCourseInfo'
 // import HoleCardStart from './components/HoleCardStart'
 // import TotalSummary from './pages/app/TotalSummary'
@@ -21,6 +21,8 @@ import SignUp from './pages/auth/SignUp'
 import RequireAuth from './features/auth/RequireAuth'
 import Welcome from './features/auth/Welcome'
 import GoodByeSite from './pages/app/GoodByeSite'
+import ForgotPassword from './pages/app/ForgotPassword'
+import ResetPassword from './pages/app/ResetPassword'
 
 
 
@@ -39,15 +41,21 @@ function App() {
       </Routes>
       <Navbar /> */}
 
+
       <Routes>
         {/* public routes */}
+
         <Route path="/" element={<WelcomeScreen />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/logout" element={<GoodByeSite />} />
+
 
         {/* protect routes */}
         <Route element={<RequireAuth />}>
+
           <Route path='/welcome-to-your-agaps' element={<Welcome />} />
           <Route path="/overview" element={<Overview />} />
           <Route path="/single-mode" element={<SingleMode />} />
@@ -56,8 +64,6 @@ function App() {
           <Route path="/team-mode/single-scramble" element={<SingleScramble />} />
         </Route>
 
-        {/* <Route path="/" element={<UserList />} /> */}
-        {/* <Route path="/" element={<Home />} /> */}
       </Routes>
 
     </div>

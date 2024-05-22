@@ -2,7 +2,6 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logOut } from '../../features/auth/authSlice';
 import axios from 'axios';
-import { useEffect } from 'react';
 
 const LogOut = () => {
     const dispatch = useDispatch();
@@ -14,16 +13,10 @@ const LogOut = () => {
                 withCredentials: true,
             });
             dispatch(logOut({ user: null, accessToken: null }));
-            navigate('/logout', { replace: true });
+            navigate('/logout');
         } catch (error) {
             console.error('Failed to logout', error);
         }
-
-        return (
-            <div>
-                <button onClick={() => handleLogout()}>Log Out</button>
-            </div>
-        )
     }
 
     return (

@@ -74,7 +74,7 @@ const LogIn = () => {
                     value={username}
                     required
                 />
-
+                <br />
                 <label htmlFor="password">Password:</label>
                 <input
                     type="password"
@@ -85,6 +85,8 @@ const LogIn = () => {
                 />
                 <button>Log In</button>
             </form>
+            <p>Forgot username or password?</p>
+            <Link to={'/forgot-password'}>Forgot Password?</Link>
         </section>
     )
 
@@ -94,6 +96,7 @@ const LogIn = () => {
         <div>
             {content}
             <Link to={'/'}><IoChevronBack /></Link>
+
         </div>
 
     )
