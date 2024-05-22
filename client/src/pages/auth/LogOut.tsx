@@ -1,38 +1,34 @@
-import { useState } from "react"
-import { logOut } from "../../features/auth/authSlice"
-import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { logOut } from '../../features/auth/authSlice';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 const LogOut = () => {
-    const navigate = useNavigate()
-    const [errMsg, setErrMsg] = useState('')
-
-    const dispatch = useDispatch()
-
-    const handleLogOut = (e: any) => {
-        e.preventDefault()
+    const dispatch = useDispatch();
+    const handleLogout = async () => {
         try {
-            const userData = dispatch(logOut({ user: null, accessToken: null }))
-            console.log(userData);
-            navigate('/login')
-        } catch (err: any) {
-            if (!err.status) {
-                setErrMsg('No Server Response')
-            } else if (err.status === 400) {
-                setErrMsg('Missing Username or Password')
-            } else if (err.status === 401) {
-                setErrMsg('Unauthorized')
-            } else {
-                setErrMsg(err.data?.message)
-            }
-        }
-    }
+            await axios.get('http://localhost:3000/logout', {
+                withCredentials: true,
+            });
+            dispatch(logOut({ user: null, accessToken: null }));
 
+        } catch (error) {
+            console.error('Failed to logout', error);
+        }
+
+        return (
+            <div>
+                <button onClick={() => handleLogout()}>Log Out</button>
+            </div>
+        )
+    }
 
     return (
         <div>
-            <button onClick={handleLogOut}>Log Out</button>
+            <button onClick={() => handleLogout()}>Log Out</button>
         </div>
     )
 }
+
 export default LogOut
