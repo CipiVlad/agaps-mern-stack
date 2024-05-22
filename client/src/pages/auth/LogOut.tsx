@@ -6,13 +6,15 @@ import { useEffect } from 'react';
 
 const LogOut = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const handleLogout = async () => {
         try {
             await axios.get('http://localhost:3000/logout', {
                 withCredentials: true,
             });
             dispatch(logOut({ user: null, accessToken: null }));
-
+            navigate('/logout', { replace: true });
         } catch (error) {
             console.error('Failed to logout', error);
         }
