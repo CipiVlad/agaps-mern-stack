@@ -28,8 +28,8 @@ dotenv.config();
 
 
 //Cross Origin Resource Sharing
-// app.use(credentials)
-// app.use(cors(corsOptions))
+app.use(credentials)
+app.use(cors(corsOptions))
 
 //middleware
 //built-in middleware for json to handle urlencoded form data

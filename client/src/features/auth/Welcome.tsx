@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux"
 import { selectCurrentToken, selectCurrentUser } from "./authSlice"
 import { Link } from "react-router-dom"
+import LogOut from "../../pages/auth/LogOut"
 
 
 
@@ -22,6 +23,7 @@ const Welcome = () => {
 
     return (
         <main>
+            <LogOut />
             {content}
         </main>
     )

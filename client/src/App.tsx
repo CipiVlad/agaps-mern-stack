@@ -20,6 +20,7 @@ import LogIn from './pages/auth/LogIn'
 import SignUp from './pages/auth/SignUp'
 import RequireAuth from './features/auth/RequireAuth'
 import Welcome from './features/auth/Welcome'
+import GoodByeSite from './pages/app/GoodByeSite'
 
 
 
@@ -43,6 +44,7 @@ function App() {
         <Route path="/" element={<WelcomeScreen />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/logout" element={<GoodByeSite />} />
 
         {/* protect routes */}
         <Route element={<RequireAuth />}>
