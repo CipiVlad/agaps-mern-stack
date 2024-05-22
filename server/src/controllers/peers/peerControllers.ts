@@ -7,10 +7,11 @@ export const addPeer = async (req: Request, res: Response) => {
     try {
         const user = await User.findOne({ _id: req.params.id });
         if (user) {
-            user.peers.push({
-                // peerId: new ObjectId(req.body.peerId),
-                peerName: req.body.peerName
-            });
+            // user.peers.push({
+            //     // peerId: new ObjectId(req.body.peerId),
+            //     peerName: req.body.peerName
+            // });
+            user.peers?.peerName.push(req.body.peerName)
             await user.save();
             res.status(200).send(user);
         } else {
@@ -28,9 +29,10 @@ export const addTeam = async (req: Request, res: Response) => {
     try {
         const user = await User.findOne({ _id: req.params.id });
         if (user) {
-            user.peers.push({
-                teamName: req.body.teamName
-            })
+            // user.peers.push({
+            //     teamName: req.body.teamName
+            // })
+            user.peers?.teamName.push(req.body.teamName)
             await user.save();
             res.status(200).send(user);
         } else {

@@ -32,13 +32,12 @@ app.use(credentials)
 app.use(cors(corsOptions))
 
 //middleware
-//built-in middleware for cookies
-app.use(cookieParser());
 //built-in middleware for json to handle urlencoded form data
 app.use(express.urlencoded({ extended: true }));
-
 //built-in middleware for json
 app.use(express.json());
+//built-in middleware for cookies
+app.use(cookieParser());
 
 
 // +----------------------------------------+

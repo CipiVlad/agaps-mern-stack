@@ -16,6 +16,18 @@ export const getAllUsers = async (req: Request, res: Response) => {
     }
 }
 
+//only for development
+//delete all users
+export const deleteAllUsers = async (req: Request, res: Response) => {
+    try {
+        const users = await User.deleteMany()
+        res.status(200).send(users)
+    } catch (error: any) {
+        res.status(500).send({ message: error.message })
+        console.log(error);
+    }
+}
+
 // create new user
 export const createUser = async (req: Request, res: Response) => {
     const { email, password, username } = req.body;
@@ -39,7 +51,6 @@ export const createUser = async (req: Request, res: Response) => {
             email,
             password: hashedPassword,
             username,
-            peers: [{ peerName: '', teamName: '' }],
             gameModes: { singleMode: [], teamMode: { twoVStwo: { strokePlay: [], matchPlay: [], comboPlay: [] }, singleScramble: [] } },
             stats: { singleMode: { holesPlayed: 0 }, teamMode: { twoVStwo: { strokePlay: [], matchPlay: [], comboPlay: [] }, singleScramble: [] } },
         });
@@ -78,18 +89,19 @@ export const loginUser = async (req: Request, res: Response) => {
         const accessToken = jwt.sign(
             { username: foundUser[0].username },
             accessTokenSecret,
-            { expiresIn: '10s' }
+            { expiresIn: '55s' }
         );
 
         const refreshToken = jwt.sign(
             { username: foundUser[0].username },
             refreshTokenSecret,
-            { expiresIn: '15s' }
+            { expiresIn: '90s' }
         );
 
         const currentUser: any = { ...foundUser[0], refreshToken };
         // Saving refreshToken with current user
         currentUser.refreshToken = refreshToken;
+        console.log(currentUser);
         await User.updateOne({ username }, { refreshToken: refreshToken });
         // Creates Secure Cookie with refresh token
         res.cookie('jwt', refreshToken, {
@@ -107,12 +119,15 @@ export const loginUser = async (req: Request, res: Response) => {
 
 
 export const handleLogout = async (req: Request, res: Response) => {
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'none', secure: true });
+    res.sendStatus(204);
+
     const cookies = req.cookies;
-    if (!cookies?.jwt) return res.sendStatus(204); //No content
+    if (!cookies?.jwt) return res.sendStatus(204); // No content
 
     const refreshToken = cookies.jwt;
 
-    // Is refresh token in db?
+    // Check if user exists
     const foundUser = await User.findOne({ refreshToken });
 
     if (!foundUser) {
@@ -122,6 +137,7 @@ export const handleLogout = async (req: Request, res: Response) => {
 
     // Delete refreshToken in db
     await User.updateOne({ refreshToken }, { $set: { refreshToken: '' } });
+
 
     res.clearCookie('jwt', { httpOnly: true, sameSite: 'none', secure: true });
     res.sendStatus(204);

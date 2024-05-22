@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react"
 import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { setCredentials } from "../../features/auth/authSlice"
 import { useLoginMutation } from "../../features/auth/authApiSlice"
+import { IoChevronBack } from "react-icons/io5"
 
 
 
@@ -25,6 +26,7 @@ const LogIn = () => {
     useEffect(() => {
         setErrMsg('')
     }, [username, password])
+
 
 
     const handleSubmit = async (e: any) => {
@@ -84,12 +86,14 @@ const LogIn = () => {
                 <button>Log In</button>
             </form>
         </section>
-
-
     )
+
+
+
     return (
         <div>
             {content}
+            <Link to={'/'}><IoChevronBack /></Link>
         </div>
 
     )

@@ -69,10 +69,15 @@ const gameModesSchema = new Schema({
     teamMode: { type: teamGameModeSchema, default: () => ({}) },
 });
 
+// const peerSchema = new Schema({
+//    peerName: { type: String, required: true },
+//    teamName: { type: String, required: true },
+// });
+
 const peerSchema = new Schema({
-    peerName: { type: String, default: '' },
-    teamName: { type: String, default: '' },
-}, { timestamps: true });
+    peerName: { type: String, required: true },
+    teamName: { type: String, required: true },
+})
 
 const teamStatsSchema = new Schema({
     gamesPlayed: { type: Number, required: true },
@@ -142,7 +147,7 @@ const userSchema = new Schema({
     username: { type: String, required: true, unique: true, index: true },
     savedCourses: { type: [savedCourseSchema], default: [] },
     gameModes: { type: gameModesSchema, default: () => ({}) },
-    peers: { type: [peerSchema], default: [{ peerName: '', teamName: '' }] },
+    peers: { peerName: [{ type: String }], teamName: [{ type: String }] },
     stats: { type: statsSchema, default: () => ({ singleMode: { holesPlayed: 0 }, teamMode: { twoVStwo: { strokePlay: [], matchPlay: [], comboPlay: [] }, singleScramble: [] } }) },
     refreshToken: { type: String, default: '' },
 }, { timestamps: true });

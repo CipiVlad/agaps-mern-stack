@@ -48,14 +48,14 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route path='/welcome-to-your-agaps' element={<Welcome />} />
           <Route path="/overview" element={<Overview />} />
+          <Route path="/single-mode" element={<SingleMode />} />
+          <Route path="/team-mode" element={<TeamMode />} />
+          <Route path="/team-mode/two-vs-two" element={<TwoVSTwo />} />
+          <Route path="/team-mode/single-scramble" element={<SingleScramble />} />
         </Route>
 
         {/* <Route path="/" element={<UserList />} /> */}
-        {/* <Route path="/" element={<Home />} />
-        <Route path="/single-mode" element={<SingleMode />} />
-        <Route path="/team-mode" element={<TeamMode />} />
-        <Route path="/team-mode/two-vs-two" element={<TwoVSTwo />} />
-        <Route path="/team-mode/single-scramble" element={<SingleScramble />} /> */}
+        {/* <Route path="/" element={<Home />} /> */}
       </Routes>
 
     </div>
