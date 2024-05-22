@@ -3,7 +3,6 @@ const router = express.Router();
 import { createUser, getAllUsers, loginUser, handleLogout, deleteAllUsers } from '../../controllers/auth/authController';
 import { handleRefreshToken } from '../../controllers/auth/refreshController';
 
-
 router.post('/signup', createUser);
 router.post('/login', loginUser);
 router.get('/refresh', handleRefreshToken)

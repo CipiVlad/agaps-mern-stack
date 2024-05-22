@@ -71,63 +71,51 @@ export const loginUser = async (req: Request, res: Response) => {
     }
 
     // Check if user exists
-    const foundUser = await User.find({ username })
+    const foundUser = await User.findOne({ username });
     if (!foundUser) {
-        return res.status(401).json({ error: 'Invalid credentials' }); // 401 = Unauthorized
+        return res.status(401).json({ error: 'Invalid credentials' });
     }
-    //evaluate password
-    const match = await bcrypt.compare(password, foundUser[0].password);
-    if (match) {
-        //create JWT 
-        const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
-        const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
 
-        if (!accessTokenSecret || !refreshTokenSecret) {
-            return res.status(500).json({ error: 'Missing JWT secret' });
-        }
-
-        const accessToken = jwt.sign(
-            { username: foundUser[0].username },
-            accessTokenSecret,
-            { expiresIn: '55s' }
-        );
-
-        const refreshToken = jwt.sign(
-            { username: foundUser[0].username },
-            refreshTokenSecret,
-            { expiresIn: '90s' }
-        );
-
-        const currentUser: any = { ...foundUser[0], refreshToken };
-        // Saving refreshToken with current user
-        currentUser.refreshToken = refreshToken;
-        console.log(currentUser);
-        await User.updateOne({ username }, { refreshToken: refreshToken });
-        // Creates Secure Cookie with refresh token
-        res.cookie('jwt', refreshToken, {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'none',
-            maxAge: 24 * 60 * 60 * 1000 // 1 day
-        });
-
-        res.status(200).json({ accessToken });
-    } else {
-        res.status(401).json({ error: 'Invalid credentials' });
+    // evaluate password
+    const match = await bcrypt.compare(password, foundUser.password);
+    if (!match) {
+        return res.status(401).json({ error: 'Invalid credentials' });
     }
+
+    // create JWT
+    const accessToken = jwt.sign(
+        { "username": foundUser.username },
+        process.env.ACCESS_TOKEN_SECRET!,
+        { expiresIn: '15m' }
+    );
+    const refreshToken = jwt.sign(
+        { "username": foundUser.username },
+        process.env.REFRESH_TOKEN_SECRET!,
+        { expiresIn: '7d' }
+    );
+
+    // Saving refreshToken with current user
+    foundUser.refreshToken = refreshToken;
+    const result = await foundUser.save();
+    console.log(result);
+
+    // Create secure cookie with refresh token
+    //!UNCOMMENT FOR PRODUCTION 
+    //res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'none', secure: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
+
+    res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 7 * 24 * 60 * 60 * 1000 });
+
+    res.json({ accessToken });
 }
 
 
 export const handleLogout = async (req: Request, res: Response) => {
-    res.clearCookie('jwt', { httpOnly: true, sameSite: 'none', secure: true });
-    res.sendStatus(204);
-
     const cookies = req.cookies;
     if (!cookies?.jwt) return res.sendStatus(204); // No content
 
     const refreshToken = cookies.jwt;
 
-    // Check if user exists
+    // Is refresh token in db?
     const foundUser = await User.findOne({ refreshToken });
 
     if (!foundUser) {
@@ -136,9 +124,9 @@ export const handleLogout = async (req: Request, res: Response) => {
     }
 
     // Delete refreshToken in db
-    await User.updateOne({ refreshToken }, { $set: { refreshToken: '' } });
-
+    foundUser.refreshToken = '';
+    await foundUser.save();
 
     res.clearCookie('jwt', { httpOnly: true, sameSite: 'none', secure: true });
-    res.sendStatus(204);
+    res.status(204).json({ message: 'Logged out successfully' });
 }
