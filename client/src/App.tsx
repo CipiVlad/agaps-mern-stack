@@ -23,6 +23,7 @@ import Welcome from './features/auth/Welcome'
 import GoodByeSite from './pages/app/GoodByeSite'
 import ForgotPassword from './pages/app/ForgotPassword'
 import ResetPassword from './pages/app/ResetPassword'
+import SavedCourses from './pages/courses/SavedCourses'
 
 
 
@@ -58,6 +59,7 @@ function App() {
 
           <Route path='/welcome-to-your-agaps' element={<Welcome />} />
           <Route path="/overview" element={<Overview />} />
+          <Route path="/saved-courses" element={<SavedCourses />} />
           <Route path="/single-mode" element={<SingleMode />} />
           <Route path="/team-mode" element={<TeamMode />} />
           <Route path="/team-mode/two-vs-two" element={<TwoVSTwo />} />

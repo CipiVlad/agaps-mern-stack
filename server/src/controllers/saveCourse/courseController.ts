@@ -32,3 +32,18 @@ export const saveCourse = async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
+
+// get all saved courses
+export const getSavedCourses = async (req: Request, res: Response) => {
+    try {
+        const user = await User.findById({ _id: req.params.id });
+        if (user) {
+            res.status(200).send(user.savedCourses)
+        }
+    }
+    catch (error: any) {
+        res.status(500).send({ message: error.message });
+    }
+}
+
+// delete saved course

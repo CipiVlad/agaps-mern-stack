@@ -84,12 +84,12 @@ export const loginUser = async (req: Request, res: Response) => {
 
     // create JWT
     const accessToken = jwt.sign(
-        { "username": foundUser.username },
+        { "userId": foundUser._id, "username": foundUser.username },
         process.env.ACCESS_TOKEN_SECRET!,
         { expiresIn: '15m' }
     );
     const refreshToken = jwt.sign(
-        { "username": foundUser.username },
+        { "userId": foundUser._id, "username": foundUser.username },
         process.env.REFRESH_TOKEN_SECRET!,
         { expiresIn: '7d' }
     );

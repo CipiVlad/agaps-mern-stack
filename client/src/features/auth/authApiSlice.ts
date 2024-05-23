@@ -1,6 +1,4 @@
-import { User } from './../../interfaces/User';
 import { apiSlice } from "../../app/api/apiSlice";
-
 
 export const authApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
@@ -20,8 +18,16 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 credentials: 'include'
             })
         }),
+        // query for saved courses by user id
+        getSavedCourses: builder.query({
+            query: (id) => ({
+                url: `/courses/664dfbad9c477772e32cb372`,
+                credentials: 'include'
+            }),
+
+        })
     })
 })
 
-export const { useLoginMutation, useSignupMutation } = authApiSlice
+export const { useLoginMutation, useSignupMutation, useGetSavedCoursesQuery } = authApiSlice
 

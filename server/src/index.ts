@@ -55,11 +55,11 @@ app.use('/', authRoutes);
 app.use(verifyJWT);
 
 // +----------------------------------------+
-// |              COURSE ROUTES                |
+// |              COURSE ROUTES             |
 // +----------------------------------------+
 
-// save new course to user
-app.use('/save-new-course', courseRoutes);
+// add/edit/delete course inside user
+app.use('/courses', courseRoutes);
 
 
 // +----------------------------------------+
@@ -78,20 +78,21 @@ app.use('/team-mode/', indexTeamModeRoutes)
 
 
 // +----------------------------------------+
-// |              PEER ROUTES                |
+// |              PEER ROUTES               |
 // +----------------------------------------+
 app.use('/peers', peerRoutes)
 
 
 
 // +----------------------------------------+
-// |              STATS ROUTES               |
+// |              STATS ROUTES              |
 // +----------------------------------------+
 
 //add stats
+//TODO: write logic for stats
 app.post('/stats/:id', async (req: Request, res: Response) => { });
 // listener
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log(`The application is listening on ${port}!`);
 })
