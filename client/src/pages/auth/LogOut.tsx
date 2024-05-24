@@ -2,7 +2,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logOut } from '../../features/auth/authSlice';
 import axios from 'axios';
-
+//icon logout
+import { IoLogOutSharp } from "react-icons/io5"
 const LogOut = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ const LogOut = () => {
 
     return (
         <div>
-            <button onClick={() => handleLogout()}>Log Out</button>
+            <IoLogOutSharp onClick={() => handleLogout()}>Log Out</IoLogOutSharp>
         </div>
     )
 }

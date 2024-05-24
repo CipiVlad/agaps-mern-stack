@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { setCredentials } from "../../features/auth/authSlice"
 import { useSignupMutation } from "../../features/auth/authApiSlice"
-import { IoChevronBack } from "react-icons/io5"
+import GoBack from "../navigation/GoBack"
 
 
 const SignUp = () => {
@@ -104,7 +104,7 @@ const SignUp = () => {
     return (
         <div>
             {content}
-            <Link to="/"><IoChevronBack /></Link>
+            <GoBack />
         </div>
     )
 

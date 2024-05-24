@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import GoBack from "../navigation/GoBack";
 
 
 
@@ -21,6 +22,7 @@ const ForgotPassword = () => {
                 <button type="submit">Submit</button>
             </form>
 
+            <GoBack />
 
         </div>
     )

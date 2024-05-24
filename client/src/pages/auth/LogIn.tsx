@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { setCredentials } from "../../features/auth/authSlice"
 import { useLoginMutation } from "../../features/auth/authApiSlice"
-import { IoChevronBack } from "react-icons/io5"
+import GoBack from "../navigation/GoBack"
 
 
 
@@ -85,7 +85,6 @@ const LogIn = () => {
                 />
                 <button>Log In</button>
             </form>
-            <p>Forgot username or password?</p>
             <Link to={'/forgot-password'}>Forgot Password?</Link>
         </section>
     )
@@ -95,7 +94,8 @@ const LogIn = () => {
     return (
         <div>
             {content}
-            <Link to={'/'}><IoChevronBack /></Link>
+            <br />
+            <GoBack />
 
         </div>
 
