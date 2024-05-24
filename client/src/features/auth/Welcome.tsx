@@ -29,11 +29,16 @@ const Welcome = () => {
         <section>
             <h1>{welcome}</h1>
             <br />
-            <Link to="/stats/all-stats"><IoStatsChart />View All Your Stats</Link>
+            <div>
+                <Link to="/stats/all-stats"><IoStatsChart />View All Your Stats</Link>
+            </div>
             <br />
             <div>
-                <p>Choose A Game Mode</p>
                 <Link to="/choose-game-mode">Choose Game Mode</Link>
+            </div>
+            <br />
+            <div>
+                <Link to="/peers">View Peers</Link>
             </div>
         </section>
     )

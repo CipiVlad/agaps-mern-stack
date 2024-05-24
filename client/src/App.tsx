@@ -23,8 +23,8 @@ import SavedCourses from './pages/courses/SavedCourses'
 import Settings from './pages/profile/Settings'
 import UserProfile from './pages/profile/UserProfile'
 import { useSelector } from 'react-redux'
-import AllStats from './pages/stats/AllStats'
 
+// Game Modes 
 import ChooseGameMode from './pages/choose-game-mode/ChooseGameMode'
 import SingleMode from './pages/single-mode/SingleMode'
 import TeamMode from './pages/team-mode/TeamMode'
@@ -34,7 +34,16 @@ import StrokePlay from './pages/team-mode/twoVStwo/StrokePlay'
 import ComboPlay from './pages/team-mode/twoVStwo/ComboPlay'
 import MatchPlay from './pages/team-mode/twoVStwo/MatchPlay'
 
-
+// Stats
+import AllStats from './pages/stats/AllStats'
+import SingleModeStats from './pages/stats/single-mode-stats/SingleModeStats'
+import TeamModeStats from './pages/stats/team-mode-stats/TeamModeStats'
+import StrokePlayStats from './pages/stats/team-mode-stats/stroke-play-stats/StrokePlayStats'
+import ComboPlayStats from './pages/stats/team-mode-stats/combo-play-stats/ComboPlayStats'
+import MatchPlayStats from './pages/stats/team-mode-stats/match-play-stats/MatchPlayStats'
+import SingleScrambleStats from './pages/stats/team-mode-stats/single-scarmble-stats/SingleScrambleStats'
+import TwoVSTwoStats from './pages/stats/team-mode-stats/TwoVSTwoStats'
+import PeersList from './pages/peers/PeersList'
 
 function App() {
 
@@ -91,8 +100,20 @@ function App() {
 
           <Route path="/team-mode/single-scramble" element={<SingleScramble />} />
 
-          {/* All stats */}
+          {/* All stats routes */}
           <Route path="/stats/all-stats" element={<AllStats />} />
+          {/* Single Mode stats */}
+          <Route path="/stats/single-mode-stats" element={<SingleModeStats />} />
+          {/* Team Mode stats */}
+          <Route path="/stats/team-mode-stats" element={<TeamModeStats />} />
+          <Route path='/stats/team-mode-stats/two-vs-two' element={<TwoVSTwoStats />} />
+          <Route path='/stats/team-mode-stats/two-vs-two/stroke-play' element={<StrokePlayStats />} />
+          <Route path='/stats/team-mode-stats/two-vs-two/combo-play' element={<ComboPlayStats />} />
+          <Route path='/stats/team-mode-stats/two-vs-two/match-play' element={<MatchPlayStats />} />
+          <Route path='/stats/team-mode-stats/single-scramble' element={<SingleScrambleStats />} />
+
+          {/* peers */}
+          <Route path="/peers" element={<PeersList />} />
 
 
         </Route>
