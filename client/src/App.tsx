@@ -47,8 +47,8 @@ import PeersList from './pages/peers/PeersList'
 
 function App() {
 
-  const token = useSelector((state: any) => state?.auth?.token)
-  console.log(token);
+  // const token = useSelector((state: any) => state?.auth?.token)
+  // console.log(token);
 
   return (
     <div className="App">

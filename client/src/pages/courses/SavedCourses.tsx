@@ -1,16 +1,13 @@
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { useGetSavedCoursesQuery } from "../../features/auth/authApiSlice"
-import { jwtDecode, JwtPayload } from "jwt-decode"
-import { Link } from "react-router-dom"
 import TopNav from "../navigation/TopNav"
 import GoBack from "../navigation/GoBack"
-
+import { RootState } from "../../app/store"
 
 const SavedCourses = () => {
 
     //get token from store
-    const token = useSelector((state: any) => state.auth.token)
+    const token = useSelector((state: RootState) => state.auth.token)
     const { data: data, isLoading } = useGetSavedCoursesQuery(token)
 
 

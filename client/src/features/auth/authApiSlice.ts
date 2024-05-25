@@ -1,12 +1,11 @@
 import { apiSlice } from "../../app/api/apiSlice";
 import { jwtDecode } from 'jwt-decode';
-
+import { setCredentials } from "./authSlice";
 export interface JwtPayload {
     userId: string
 }
 
 export const authApiSlice = apiSlice.injectEndpoints({
-
     // +----------------------------------------+
     // |              AUTH ROUTES               |
     // +----------------------------------------+
@@ -17,7 +16,19 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 method: 'POST',
                 body: { ...credentials },
                 credentials: 'include'
-            })
+            }),
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                    const { data } = await queryFulfilled;
+                    const { accessToken } = data;
+                    // Save the accessToken to localStorage
+                    localStorage.setItem('accessToken', accessToken);
+                    // You might also want to save user details in the state
+                    dispatch(setCredentials({ accessToken: accessToken, user: data.user }));
+                } catch (err) {
+                    console.error('Login failed: ', err);
+                }
+            }
         }),
         signup: builder.mutation({
             query: credentials => ({
@@ -32,28 +43,20 @@ export const authApiSlice = apiSlice.injectEndpoints({
         // |           COURSE ROUTES               |
         // +----------------------------------------+
 
+
+
         // query for saved courses by user id
         getSavedCourses: builder.query({
-            // query: userId => {
-            //     return {
-            //         url: `/courses/${userId}`,
-            //         credentials: 'include',
-            //         method: 'GET',
-            //     }
-            // }
-
-            query: recievedToken => {
-                console.log("Received token:", recievedToken); // Log the received token
-                const decodeToken: JwtPayload = jwtDecode(recievedToken);
-
-                console.log("Decoded token:", decodeToken); // Log the decoded token
-                const thisUser = decodeToken.userId
+            query: () => {
+                const token = localStorage.getItem('accessToken');
+                if (!token) throw new Error('Token not found');
+                const decodedToken: JwtPayload = jwtDecode(token);
+                const userId = decodedToken.userId;
                 return {
-                    url: `/courses/${thisUser}`,
-                }
+                    url: `/courses/${userId}`,
+                };
             }
         }),
-
 
         // +----------------------------------------+
         // |              GAME ROUTES               |

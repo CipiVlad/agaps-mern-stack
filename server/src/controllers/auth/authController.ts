@@ -103,8 +103,13 @@ export const loginUser = async (req: Request, res: Response) => {
     //!UNCOMMENT FOR PRODUCTION 
     //res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'none', secure: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
 
-    res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 7 * 24 * 60 * 60 * 1000 });
-
+    // res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 7 * 24 * 60 * 60 * 1000 });
+    res.cookie('jwt', refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // Nur im Produktionsmodus secure
+        sameSite: 'strict', // Cross-site Request Forgery (CSRF) Schutz
+        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 Tage
+    });
     res.json({ accessToken });
 }
 
