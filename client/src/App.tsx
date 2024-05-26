@@ -19,7 +19,6 @@ import Welcome from './features/auth/Welcome'
 import GoodByeSite from './pages/app/GoodByeSite'
 import ForgotPassword from './pages/app/ForgotPassword'
 import ResetPassword from './pages/app/ResetPassword'
-import SavedCourses from './pages/courses/SavedCourses'
 import Settings from './pages/profile/Settings'
 import UserProfile from './pages/profile/UserProfile'
 import { useSelector } from 'react-redux'
@@ -44,6 +43,10 @@ import MatchPlayStats from './pages/stats/team-mode-stats/match-play-stats/Match
 import SingleScrambleStats from './pages/stats/team-mode-stats/single-scarmble-stats/SingleScrambleStats'
 import TwoVSTwoStats from './pages/stats/team-mode-stats/TwoVSTwoStats'
 import PeersList from './pages/peers/PeersList'
+
+// Courses
+import SavedCourses from './pages/courses/SavedCourses'
+import CourseDetails from './pages/courses/CourseDetails'
 
 function App() {
 
@@ -87,6 +90,7 @@ function App() {
 
           {/* courses */}
           <Route path="/saved-courses" element={<SavedCourses />} />
+          <Route path='/course-details/:id' element={<CourseDetails />} />
 
           {/* choose game mode */}
           <Route path="/choose-game-mode" element={<ChooseGameMode />} />

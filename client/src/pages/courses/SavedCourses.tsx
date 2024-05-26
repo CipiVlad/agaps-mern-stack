@@ -3,6 +3,9 @@ import { useGetSavedCoursesQuery } from "../../features/auth/authApiSlice"
 import TopNav from "../navigation/TopNav"
 import GoBack from "../navigation/GoBack"
 import { RootState } from "../../app/store"
+import { Link } from "react-router-dom"
+import { useState } from "react"
+
 
 const SavedCourses = () => {
 
@@ -12,26 +15,32 @@ const SavedCourses = () => {
 
 
     const allCourseData = data && data.flatMap((each: any) => each.courseInfo)
-    console.log(allCourseData);
+
+    // state of allCourseData
+    const [getCourseData, setGetCourseData] = useState<any>(allCourseData || [])
+
 
     if (isLoading) {
         return <div>Loading...</div>
     }
-
-    const content = allCourseData && allCourseData.map((each: any) => {
+    const courseNames = allCourseData && allCourseData.map((each: any, index: number) => {
         return (
             <div key={each._id}>
-                <p> {each.courseName}</p>
-                {
-                    each.holes && each.holes.map((each: any) => {
-                        return (
-                            <p key={each._id}>Hole: {each.holeNumber}</p>
-                        )
-                    })
-                }
+                {/* send selected course data with state to CourseDetail */}
+                {each ? (
+                    <Link
+                        to={`/course-details/${each._id}`}
+                        state={getCourseData[index]}
+                    >
+                        {each.courseName}
+                    </Link>
+                ) : null}
             </div>
         )
     })
+
+
+
 
 
     return (
@@ -39,7 +48,7 @@ const SavedCourses = () => {
             <TopNav />
             <h1>Saved Courses</h1>
             <h3>Course Names:</h3>
-            {content}
+            {courseNames}
             <br />
             <GoBack />
         </div>
