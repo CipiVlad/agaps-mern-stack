@@ -46,7 +46,6 @@ import PeersList from './pages/peers/PeersList'
 
 // Courses
 import SavedCourses from './pages/courses/SavedCourses'
-import CourseDetails from './pages/courses/CourseDetails'
 
 function App() {
 
@@ -90,7 +89,6 @@ function App() {
 
           {/* courses */}
           <Route path="/saved-courses" element={<SavedCourses />} />
-          <Route path='/course-details/:id' element={<CourseDetails />} />
 
           {/* choose game mode */}
           <Route path="/choose-game-mode" element={<ChooseGameMode />} />

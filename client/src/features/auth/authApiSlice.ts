@@ -58,6 +58,22 @@ export const authApiSlice = apiSlice.injectEndpoints({
             }
         }),
 
+
+
+        saveNewCourse: builder.mutation({
+            query: () => {
+                const token = localStorage.getItem('accessToken');
+                if (!token) throw new Error('Token not found');
+                const decodedToken: JwtPayload = jwtDecode(token);
+                const userId = decodedToken.userId;
+                return {
+                    url: `/courses/save-new-course/${userId}`,
+                    method: 'POST',
+                    credentials: 'include'
+                }
+            }
+        }),
+
         // +----------------------------------------+
         // |              GAME ROUTES               |
         // +----------------------------------------+
@@ -72,5 +88,5 @@ export const authApiSlice = apiSlice.injectEndpoints({
     })
 })
 
-export const { useLoginMutation, useSignupMutation, useGetSavedCoursesQuery } = authApiSlice
+export const { useLoginMutation, useSignupMutation, useGetSavedCoursesQuery, useSaveNewCourseMutation } = authApiSlice
 

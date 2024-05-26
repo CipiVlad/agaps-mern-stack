@@ -3,9 +3,9 @@ import { useGetSavedCoursesQuery } from "../../features/auth/authApiSlice"
 import TopNav from "../navigation/TopNav"
 import GoBack from "../navigation/GoBack"
 import { RootState } from "../../app/store"
-import { Link } from "react-router-dom"
 import { useState } from "react"
-
+//delete icon
+import { AiFillDelete } from "react-icons/ai"
 
 const SavedCourses = () => {
 
@@ -28,12 +28,9 @@ const SavedCourses = () => {
             <div key={each._id}>
                 {/* send selected course data with state to CourseDetail */}
                 {each ? (
-                    <Link
-                        to={`/course-details/${each._id}`}
-                        state={getCourseData[index]}
-                    >
-                        {each.courseName}
-                    </Link>
+                    <h3>{each.courseName}
+                        <AiFillDelete style={{ color: "red", cursor: "pointer", marginLeft: "10px" }} />
+                    </h3>
                 ) : null}
             </div>
         )
