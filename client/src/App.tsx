@@ -42,7 +42,11 @@ import ComboPlayStats from './pages/stats/team-mode-stats/combo-play-stats/Combo
 import MatchPlayStats from './pages/stats/team-mode-stats/match-play-stats/MatchPlayStats'
 import SingleScrambleStats from './pages/stats/team-mode-stats/single-scarmble-stats/SingleScrambleStats'
 import TwoVSTwoStats from './pages/stats/team-mode-stats/TwoVSTwoStats'
+
+// Peers
 import PeersList from './pages/peers/PeersList'
+import AddPeer from './pages/peers/AddPeer'
+import AddTeam from './pages/peers/AddTeam'
 
 // Courses
 import SavedCourses from './pages/courses/SavedCourses'
@@ -116,6 +120,8 @@ function App() {
 
           {/* peers */}
           <Route path="/peers" element={<PeersList />} />
+          <Route path="/peers/add-peer" element={<AddPeer />} />
+          <Route path="/peers/add-team" element={<AddTeam />} />
 
 
         </Route>

@@ -23,7 +23,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
                     const { accessToken } = data;
                     // Save the accessToken to localStorage
                     localStorage.setItem('accessToken', accessToken);
-                    // You might also want to save user details in the state
+                    // Save user details in the state
                     dispatch(setCredentials({ accessToken: accessToken, user: data.user }));
                 } catch (err) {
                     console.error('Login failed: ', err);
@@ -43,8 +43,6 @@ export const authApiSlice = apiSlice.injectEndpoints({
         // |           COURSE ROUTES               |
         // +----------------------------------------+
 
-
-
         // query for saved courses by user id
         getSavedCourses: builder.query({
             query: () => {
@@ -57,9 +55,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 };
             }
         }),
-
-
-
+        // save new course
         saveNewCourse: builder.mutation({
             query: () => {
                 const token = localStorage.getItem('accessToken');
@@ -81,6 +77,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
         // +----------------------------------------+
         // |              PEER ROUTES               |
         // +----------------------------------------+
+
+        //get peerName and teamName
         getPeers: builder.query({
             query: () => {
                 const token = localStorage.getItem('accessToken');
@@ -91,7 +89,42 @@ export const authApiSlice = apiSlice.injectEndpoints({
                     url: `/peers/peer/${userId}`,
                 };
             }
-        })
+        }),
+
+        //save peerName
+        savePeer: builder.mutation({
+            query: ({ peerName }: { peerName: string }) => {
+                const token = localStorage.getItem('accessToken');
+                if (!token) throw new Error('Token not found');
+                const decodedToken: JwtPayload = jwtDecode(token);
+                const userId = decodedToken.userId;
+                return {
+                    url: `/peers/peer/${userId}`,
+                    method: 'POST',
+                    body: { peerName },
+                    credentials: 'include'
+                }
+            }
+        }),
+
+        //save teamName
+        saveTeam: builder.mutation({
+            query: ({ teamName }: { teamName: string }) => {
+                const token = localStorage.getItem('accessToken');
+                if (!token) throw new Error('Token not found');
+                const decodedToken: JwtPayload = jwtDecode(token);
+                const userId = decodedToken.userId;
+                return {
+                    url: `/peers/team/${userId}`,
+                    method: 'POST',
+                    body: { teamName },
+                    credentials: 'include'
+                }
+            }
+        }),
+
+
+
         // +----------------------------------------+
         // |              STATS ROUTES              |
         // +----------------------------------------+
@@ -104,5 +137,7 @@ export const {
     useGetSavedCoursesQuery,
     useSaveNewCourseMutation,
     useGetPeersQuery,
+    useSavePeerMutation,
+    useSaveTeamMutation
 } = authApiSlice
 
