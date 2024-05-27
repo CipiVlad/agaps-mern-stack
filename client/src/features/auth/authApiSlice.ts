@@ -81,12 +81,28 @@ export const authApiSlice = apiSlice.injectEndpoints({
         // +----------------------------------------+
         // |              PEER ROUTES               |
         // +----------------------------------------+
-
+        getPeers: builder.query({
+            query: () => {
+                const token = localStorage.getItem('accessToken');
+                if (!token) throw new Error('Token not found');
+                const decodedToken: JwtPayload = jwtDecode(token);
+                const userId = decodedToken.userId;
+                return {
+                    url: `/peers/peer/${userId}`,
+                };
+            }
+        })
         // +----------------------------------------+
         // |              STATS ROUTES              |
         // +----------------------------------------+
     })
 })
 
-export const { useLoginMutation, useSignupMutation, useGetSavedCoursesQuery, useSaveNewCourseMutation } = authApiSlice
+export const {
+    useLoginMutation,
+    useSignupMutation,
+    useGetSavedCoursesQuery,
+    useSaveNewCourseMutation,
+    useGetPeersQuery,
+} = authApiSlice
 
