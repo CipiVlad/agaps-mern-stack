@@ -1,18 +1,29 @@
 import { Link } from "react-router-dom"
 import GoBack from "./GoBack"
 import TopNav from "./TopNav"
-
+//icon peers
+import { IoPeopleSharp } from "react-icons/io5"
+//icon for stats
+import { IoStatsChart } from "react-icons/io5"
 
 const Overview = () => {
     return (
         <nav>
             <TopNav />
             <h1>Overview</h1>
-            <Link to="/saved-courses">Saved Courses</Link>
+            <div>
+                <Link to="/saved-courses">Saved Courses</Link>
+            </div>
             <br />
-            <Link to="/single-mode">Single Mode</Link>
+            <div>
+                <Link to="/stats/all-stats"><IoStatsChart /> View All Your Stats</Link>
+            </div>
             <br />
-            <Link to="/team-mode">Team Mode</Link>
+            <div>
+                <Link to="/peers"> <IoPeopleSharp /> View Peers</Link>
+            </div>
+            <br />
+            <GoBack />
         </nav>
     )
 }

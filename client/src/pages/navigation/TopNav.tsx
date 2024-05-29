@@ -3,8 +3,9 @@ import './TopNav.scss'
 
 // icons
 import { GrOverview } from "react-icons/gr";
-import { IoPersonSharp } from "react-icons/io5"
 import { IoSettingsSharp } from "react-icons/io5"
+//add icon
+import { IoAdd } from "react-icons/io5"
 import LogOut from "../auth/LogOut";
 const TopNav = () => {
     const { pathname } = useLocation()
@@ -13,21 +14,14 @@ const TopNav = () => {
         <nav className="top_nav">
 
             <div>
-                {
-                    pathname === '/overview'
-                        ?
-                        null :
-                        <Link to="/overview"><GrOverview /></Link>
-                }
+                {pathname === '/overview' ? null : <Link to="/overview"><GrOverview /></Link>}
             </div>
             <div>
-                <Link to="/settings/user-profile">
-                    <IoPersonSharp />
-                </Link>
+                {pathname === '/welcome-to-your-agaps' ? null : <Link to="/welcome-to-your-agaps"><IoAdd /></Link>}
+            </div>
 
-            </div>
             <div>
-                <Link to="/settings"><IoSettingsSharp /></Link>
+                {pathname === '/settings' ? null : <Link to="/settings"><IoSettingsSharp /></Link>}
             </div>
 
             <LogOut />

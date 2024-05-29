@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
 
-
 const ChooseGameMode = () => {
     return (
         <div className="game_modes_container">

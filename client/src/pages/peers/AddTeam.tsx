@@ -24,7 +24,7 @@ const AddTeam = () => {
         <div>
             <h1>Add Team</h1>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="peer">Peer Name:</label>
+                <label htmlFor="peer">Team Name:</label>
                 <input type="text" value={team} onChange={(e) => setTeam(e.target.value)} name="peer" id="peer" />
                 <button type="submit">Submit</button>
             </form>

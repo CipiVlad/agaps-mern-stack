@@ -23,13 +23,28 @@ const SavedCourses = () => {
     if (isLoading) {
         return <div>Loading...</div>
     }
-    const courseNames = allCourseData && allCourseData.map((each: any, index: number) => {
+
+
+    //handle delete by id
+    const handleDeleteCourse = async (id: string) => {
+        console.log(id);
+
+    }
+
+
+    const getCourseNames = allCourseData && allCourseData.map((each: any, index: number) => {
         return (
             <div key={each._id}>
                 {/* send selected course data with state to CourseDetail */}
                 {each ? (
                     <h3>{each.courseName}
-                        <AiFillDelete style={{ color: "red", cursor: "pointer", marginLeft: "10px" }} />
+                        <AiFillDelete
+                            onClick={() => handleDeleteCourse(each._id)}
+                            style={{
+                                color: "red",
+                                cursor: "pointer",
+                                marginLeft: "10px"
+                            }} />
                     </h3>
                 ) : null}
             </div>
@@ -45,7 +60,7 @@ const SavedCourses = () => {
             <TopNav />
             <h1>Saved Courses</h1>
             <h3>Course Names:</h3>
-            {courseNames}
+            {getCourseNames}
             <br />
             <GoBack />
         </div>

@@ -52,10 +52,6 @@ import AddTeam from './pages/peers/AddTeam'
 import SavedCourses from './pages/courses/SavedCourses'
 
 function App() {
-
-  // const token = useSelector((state: any) => state?.auth?.token)
-  // console.log(token);
-
   return (
     <div className="App">
       {/* <Routes>
@@ -85,7 +81,6 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route path='/welcome-to-your-agaps' element={<Welcome />} />
 
-          {/* top navbar */}
           {/* Settings */}
           <Route path="/overview" element={<Overview />} />
           <Route path="/settings/user-profile" element={<UserProfile />} />

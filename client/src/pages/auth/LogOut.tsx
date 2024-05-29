@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { logOut } from '../../features/auth/authSlice';
 import axios from 'axios';
 //icon logout
-import { IoLogOutSharp } from "react-icons/io5"
+import { TbLogout } from "react-icons/tb";
 const LogOut = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -22,7 +22,7 @@ const LogOut = () => {
 
     return (
         <div>
-            <IoLogOutSharp onClick={() => handleLogout()}>Log Out</IoLogOutSharp>
+            <TbLogout onClick={() => handleLogout()}>Log Out</TbLogout>
         </div>
     )
 }

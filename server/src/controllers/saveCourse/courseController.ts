@@ -47,3 +47,17 @@ export const getSavedCourses = async (req: Request, res: Response) => {
 }
 
 // delete saved course
+export const deleteSavedCourse = async (req: Request, res: Response) => {
+    try {
+        let user: typeof User | null = await User.findById(req.params.id); if (user) {
+            user.savedCourses = user.savedCourses.filter((course: any) => course.courseInfo._id !== req.body._id);
+            await user.save();
+            res.status(200).send(user);
+        } else {
+            res.status(404).send({ message: 'User not found' });
+        }
+    } catch (error: any) {
+        res.status(500).send({ message: error.message });
+        console.log(error);
+    }
+}   
