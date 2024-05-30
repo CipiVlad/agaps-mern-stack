@@ -50,10 +50,7 @@ export const getSavedCourses = async (req: Request, res: Response) => {
 // delete saved course
 export const deleteSavedCourse = async (req: Request, res: Response) => {
     try {
-        const userId = req.params.id;
-        const courseId = req.body._id;
-
-        console.log(`Deleting course with ID: ${courseId} for user: ${userId}`);
+        const { userId, courseId } = req.params;
 
         const user = await User.findOneAndUpdate(
             { _id: userId },
@@ -68,6 +65,5 @@ export const deleteSavedCourse = async (req: Request, res: Response) => {
         }
     } catch (error: any) {
         res.status(500).send({ message: error.message });
-        console.log(error);
     }
 };

@@ -72,14 +72,11 @@ export const authApiSlice = apiSlice.injectEndpoints({
         deleteCourse: builder.mutation({
             query: ({ userId, courseId }) => {
                 const token = localStorage.getItem('accessToken');
-                if (!token) throw new Error('Token not found');
                 return {
-                    url: `/courses/${userId}`,
+                    url: `/courses/${userId}/${courseId}`,
                     method: 'DELETE',
-                    body: JSON.stringify({ _id: courseId }),  // Stelle sicher, dass der Body korrekt formatiert ist
                     credentials: 'include',
                     headers: {
-                        'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     }
                 };

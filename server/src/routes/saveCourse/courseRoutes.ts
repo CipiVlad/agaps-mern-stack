@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/save-new-course/:id', saveCourse);
 router.get('/:id', getSavedCourses);
-router.delete('/:id', deleteSavedCourse);
-
+// router.delete('/:userId/:courseId', deleteSavedCourse);
+router.delete('/:userId/:courseId', deleteSavedCourse)
 export default router;
 
