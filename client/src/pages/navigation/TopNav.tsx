@@ -4,8 +4,9 @@ import './TopNav.scss'
 // icons
 import { GrOverview } from "react-icons/gr";
 import { IoSettingsSharp } from "react-icons/io5"
-//add icon
 import { IoAdd } from "react-icons/io5"
+
+
 import LogOut from "../auth/LogOut";
 const TopNav = () => {
     const { pathname } = useLocation()

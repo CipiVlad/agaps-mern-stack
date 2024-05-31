@@ -5,6 +5,9 @@ import TopNav from "./TopNav"
 import { IoPeopleSharp } from "react-icons/io5"
 //icon for stats
 import { IoStatsChart } from "react-icons/io5"
+//icon for courses
+import { GiGolfFlag } from "react-icons/gi";
+
 
 const Overview = () => {
     return (
@@ -12,7 +15,7 @@ const Overview = () => {
             <TopNav />
             <h1>Overview</h1>
             <div>
-                <Link to="/saved-courses">Saved Courses</Link>
+                <Link to="/saved-courses"><GiGolfFlag></GiGolfFlag>Saved Courses</Link>
             </div>
             <br />
             <div>
