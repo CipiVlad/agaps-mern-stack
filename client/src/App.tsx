@@ -50,6 +50,8 @@ import AddTeam from './pages/peers/AddTeam'
 
 // Courses
 import SavedCourses from './pages/courses/SavedCourses'
+import SaveNewCourse from './pages/courses/SaveNewCourse'
+
 
 function App() {
   return (
@@ -88,6 +90,7 @@ function App() {
 
           {/* courses */}
           <Route path="/saved-courses" element={<SavedCourses />} />
+          <Route path="/save-new-course" element={<SaveNewCourse />} />
 
           {/* choose game mode */}
           <Route path="/choose-game-mode" element={<ChooseGameMode />} />

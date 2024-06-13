@@ -1,6 +1,4 @@
-import { useSelector } from "react-redux"
 import { useSavePeerMutation } from "../../features/auth/authApiSlice"
-import { RootState } from "../../app/store"
 import GoBack from "../navigation/GoBack"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"

@@ -6,6 +6,8 @@ import { RootState } from "../../app/store";
 import { AiFillDelete } from "react-icons/ai";
 import { jwtDecode } from "jwt-decode"
 import { JwtPayload } from 'jwt-decode';
+import { Link } from "react-router-dom";
+import { IoAddCircleOutline } from "react-icons/io5";
 
 
 
@@ -74,6 +76,7 @@ const SavedCourses = () => {
                 {getCourseData}
             </div>
             <br />
+            <Link to="/save-new-course"><IoAddCircleOutline /></Link>
             <GoBack />
         </div>
     );

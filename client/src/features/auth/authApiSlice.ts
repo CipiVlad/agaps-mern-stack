@@ -56,8 +56,21 @@ export const authApiSlice = apiSlice.injectEndpoints({
             }
         }),
         // save new course
+        // saveNewCourse: builder.mutation({
+        //     query: () => {
+        //         const token = localStorage.getItem('accessToken');
+        //         if (!token) throw new Error('Token not found');
+        //         const decodedToken: JwtPayload = jwtDecode(token);
+        //         const userId = decodedToken.userId;
+        //         return {
+        //             url: `/courses/save-new-course/${userId}`,
+        //             method: 'POST',
+        //             credentials: 'include'
+        //         }
+        //     }
+        // }),
         saveNewCourse: builder.mutation({
-            query: () => {
+            query: ({ courseInfo }: { courseInfo: any }) => {
                 const token = localStorage.getItem('accessToken');
                 if (!token) throw new Error('Token not found');
                 const decodedToken: JwtPayload = jwtDecode(token);
@@ -65,6 +78,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 return {
                     url: `/courses/save-new-course/${userId}`,
                     method: 'POST',
+                    body: { courseInfo },
                     credentials: 'include'
                 }
             }
